@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling with black text
+# Custom CSS for better styling with black text and white detailed analysis
 st.markdown("""
 <style>
     .metric-card {
@@ -43,7 +43,16 @@ st.markdown("""
         border-radius: 0.5rem;
         margin: 1rem 0;
         border-left: 4px solid #1f77b4;
-        color: black !important;
+        background-color: #2c2c2c;
+    }
+    .recommendation-box pre {
+        color: white !important;
+        background-color: transparent !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: monospace !important;
+        white-space: pre-wrap !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -428,7 +437,7 @@ def display_ticker_analysis(result, ticker_data):
             fig_hist.update_layout(xaxis_title="Confidence Score", yaxis_title="Count")
             st.plotly_chart(fig_hist, use_container_width=True)
 
-    # Detailed analysis
+    # Detailed analysis with white text on dark background
     st.subheader("📋 Detailed Analysis")
     st.markdown(f"""
     <div class="recommendation-box">
