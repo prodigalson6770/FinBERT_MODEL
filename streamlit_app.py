@@ -407,35 +407,19 @@ def display_ticker_analysis(result, ticker_data):
         </div>
         """, unsafe_allow_html=True)
 
-    # Charts
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        # Sentiment distribution pie chart
-        fig_pie = px.pie(
-            values=[result["pos_pct"], result["neg_pct"], result["neu_pct"]],
-            names=["Positive", "Negative", "Neutral"],
-            title=f"Sentiment Distribution for {ticker}",
-            color_discrete_map={
-                "Positive": "#00CC96",
-                "Negative": "#EF553B", 
-                "Neutral": "#636EFA"
-            }
-        )
-        st.plotly_chart(fig_pie, use_container_width=True)
-    
-    with col2:
-        # Confidence distribution
-        if len(ticker_data) > 0:
-            fig_hist = px.histogram(
-                ticker_data,
-                x="confidence",
-                title=f"Confidence Score Distribution for {ticker}",
-                nbins=20,
-                color_discrete_sequence=["#636EFA"]
-            )
-            fig_hist.update_layout(xaxis_title="Confidence Score", yaxis_title="Count")
-            st.plotly_chart(fig_hist, use_container_width=True)
+    # Only sentiment distribution pie chart (confidence chart removed)
+    # Sentiment distribution pie chart - now full width
+    fig_pie = px.pie(
+        values=[result["pos_pct"], result["neg_pct"], result["neu_pct"]],
+        names=["Positive", "Negative", "Neutral"],
+        title=f"Sentiment Distribution for {ticker}",
+        color_discrete_map={
+            "Positive": "#00CC96",
+            "Negative": "#EF553B", 
+            "Neutral": "#636EFA"
+        }
+    )
+    st.plotly_chart(fig_pie, use_container_width=True)
 
     # Detailed analysis with white text on dark background
     st.subheader("📋 Detailed Analysis")
