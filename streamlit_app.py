@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for better styling with black text
 st.markdown("""
 <style>
     .metric-card {
@@ -26,11 +26,24 @@ st.markdown("""
         border-radius: 0.5rem;
         margin: 0.5rem 0;
     }
+    .metric-card h4 {
+        color: black !important;
+        margin-bottom: 0.5rem;
+    }
+    .metric-card h2 {
+        color: black !important;
+        margin: 0;
+    }
+    .metric-card h3 {
+        color: black !important;
+        margin: 0;
+    }
     .recommendation-box {
         padding: 1rem;
         border-radius: 0.5rem;
         margin: 1rem 0;
         border-left: 4px solid #1f77b4;
+        color: black !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -350,15 +363,14 @@ def main():
 def display_ticker_analysis(result, ticker_data):
     ticker = result["ticker"]
     
-    # Main metrics
+    # Main metrics with black text
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        action_color = get_action_color(result["action"])
         st.markdown(f"""
         <div class="metric-card">
             <h4>Recommendation</h4>
-            <h2 style="color: {action_color};">{result["action"]}</h2>
+            <h2>{result["action"]}</h2>
         </div>
         """, unsafe_allow_html=True)
     
@@ -441,14 +453,6 @@ def display_ticker_analysis(result, ticker_data):
             mime="text/csv",
             key=f"download_csv_{ticker}"
         )
-
-def get_action_color(action):
-    if "BUY" in action:
-        return "#00CC96"
-    elif "SELL" in action:
-        return "#EF553B"
-    else:
-        return "#636EFA"
 
 if __name__ == "__main__":
     main()
